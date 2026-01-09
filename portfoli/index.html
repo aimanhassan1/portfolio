@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aiman Hassan — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1720;
+      --muted:#9aa6b2;
+      --accent1:#7c5cff;
+      --accent2:#3dd5ff;
+      --glass: rgba(255,255,255,0.08);
+      --radius:16px;
+      --maxw:1100px;
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{
+      height:100%;
+      background: radial-gradient(circle at 15% 25%, rgba(124,92,255,0.15), transparent 40%),
+                  radial-gradient(circle at 85% 75%, rgba(61,213,255,0.1), transparent 50%), var(--bg);
+      color:#e6eef6;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none;transition:all .3s ease;}
+    .container{max-width:var(--maxw);margin:0 auto;padding:36px;overflow:hidden;}
+
+    /* Neon animated gradient background */
+    @keyframes neonGlow {
+      0% { filter: drop-shadow(0 0 8px var(--accent1)); }
+      50% { filter: drop-shadow(0 0 16px var(--accent2)); }
+      100% { filter: drop-shadow(0 0 8px var(--accent1)); }
+    }
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 0;
+      animation:fadeDown 1s ease-out;
+    }
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:60px;height:60px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:#061025;
+      animation:neonGlow 3s infinite ease-in-out;
+      transition:transform .3s, box-shadow .4s;
+    }
+    .logo:hover{transform:rotate(8deg) scale(1.1);box-shadow:0 0 30px var(--accent2);}
+
+    nav ul{display:flex;gap:20px;list-style:none}
+    nav a{
+      font-weight:600;color:var(--muted);padding:10px 16px;border-radius:12px;
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.05);
+    }
+    nav a:hover{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:#fff;
+      box-shadow:0 0 20px var(--accent1);
+      transform:translateY(-3px);
+    }
+
+    /* Hero Section */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center;padding:60px 0;}
+    .hero-left h1{
+      font-size:44px;margin:0 0 14px;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      -webkit-background-clip:text;color:transparent;
+      animation:fadeInUp 1s ease-out;
+    }
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .hero-left p{color:var(--muted);line-height:1.6;margin:0 0 18px;font-size:17px;}
+    .cta{display:flex;gap:12px;margin-top:20px;}
+    .btn{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      border:none;padding:12px 20px;border-radius:14px;
+      font-weight:700;color:#061025;
+      transition:all .3s;
+      box-shadow:0 0 15px rgba(124,92,255,.4);
+    }
+    .btn:hover{
+      transform:translateY(-3px) scale(1.05);
+      box-shadow:0 0 25px var(--accent2);
+    }
+    .btn.ghost{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      color:var(--muted);
+    }
+    .btn.ghost:hover{
+      color:#fff;border-color:var(--accent1);
+      box-shadow:0 0 20px var(--accent1);
+    }
+
+    /* Card glassmorphism */
+    .card{
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(14px);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.1);
+      padding:20px;
+      box-shadow:0 0 20px rgba(2,6,23,0.6);
+      transition:transform .4s, box-shadow .4s, border .4s;
+    }
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:var(--accent1);
+      box-shadow:0 0 25px rgba(124,92,255,.4);
+    }
+
+    /* Skills neon chips */
+    .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+    .skill{
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      background:rgba(255,255,255,0.05);
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:all .3s;
+    }
+    .skill:hover{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:#fff;
+      box-shadow:0 0 15px var(--accent1);
+      transform:scale(1.1);
+    }
+
+    .section{margin-top:50px;opacity:0;transform:translateY(60px);transition:all .9s ease;}
+    .section.visible{opacity:1;transform:translateY(0);}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+    /* Project Cards */
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px;}
+    .project{
+      height:170px;border-radius:14px;background-size:cover;background-position:center;
+      position:relative;overflow:hidden;transition:all .5s ease;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+    .project::before{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(45deg,var(--accent1),var(--accent2),var(--accent1));
+      opacity:0;transition:opacity .5s;z-index:0;
+    }
+    .project:hover::before{opacity:0.15;}
+    .project:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(124,92,255,.3);}
+    .overlay{
+      position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.7));
+      display:flex;align-items:flex-end;padding:12px;z-index:1;
+    }
+
+    /* Input styling */
+    form{display:grid;gap:12px;}
+    input,textarea{
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      padding:12px;border-radius:10px;color:#e6eef6;
+      transition:border .3s, box-shadow .3s;
+      backdrop-filter:blur(8px);
+    }
+    input:focus,textarea:focus{
+      border-color:var(--accent1);
+      box-shadow:0 0 15px rgba(124,92,255,.3);
+      outline:none;
+    }
+    textarea{min-height:120px;resize:vertical;}
+
+    footer{
+      margin-top:50px;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+      opacity:0;animation:fadeUp 2s ease forwards;
+    }
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .projects-grid{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:1fr}
+    }
+    @media (max-width:520px){
+      nav ul{display:none}
+      header{gap:12px}
+      .logo{width:50px;height:50px}
+      .hero-left h1{font-size:32px}
+      .projects-grid{grid-template-columns:1fr}
+    }
+    .socials{
+  display:flex;
+  gap:12px;
+}
+.socials a{
+  font-size:13px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.08);
+  color:var(--muted);
+}
+.socials a:hover{
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:#fff;
+  box-shadow:0 0 15px var(--accent1);
+}
+html{
+  scroll-behavior: smooth;
+}
+body{
+  line-height:1.7;
+  letter-spacing:0.3px;
+}
+section h2{
+  font-size:30px;
+  margin-bottom:18px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+  text-shadow:0 0 25px rgba(124,92,255,.35);
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="logo">AH</div>
+        <div>
+          <div style="font-weight:700">Aiman Hassan</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">.NET Developer • Frontend • Flutter • MERN Stack</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Hi, I'm <span>Aiman Hassan</span></h1>
+        <p>I am a passionate developer skilled in creating modern, scalable, and responsive applications using .NET, React, and Flutter. I love solving problems through clean, efficient code and elegant design.</p>
+       <div class="socials">
+  <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+  <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+</div>
+
+        <div class="skills">
+          <div class="skill">.NET Developer</div>
+          <div class="skill">MS Office</div>
+          <div class="skill">Flutter</div>
+          <div class="skill">Front End Developer</div>
+          <div class="skill">MERN Stack</div>
+          <div class="skill">React.js</div>
+          <div class="skill">MySQL / MongoDB</div>
+          <div class="skill">Responsive Web Design</div>
+        </div>
+        <div class="cta">
+          <a class="btn" href="#contact">Hire Me</a>
+          <a class="btn ghost" href="#projects">View Work</a>
+        </div>
+        
+      </div>
+
+      <aside class="card">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#061025;font-size:20px">AH</div>
+          <div>
+            <div style="font-weight:700">Aiman Hassan</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:4px">Full Stack Developer • UI/UX Enthusiast</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;color:var(--muted);font-size:14px">I create responsive, high-quality apps and websites using .NET, React, and Flutter with strong database knowledge.</div>
+        <div style="margin-top:16px;display:flex;gap:8px">
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--muted)">Location</div>
+            <div style="font-weight:700">Karachi, Pakistan</div>
+          </div>
+          <!-- <div style="flex:1">
+            <div style="font-size:12px;color:var(--muted)">Experience</div>
+            <div style="font-weight:700">2+ years</div>
+          </div> -->
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section card">
+      <h2>About</h2>
+      <p style="color:var(--muted);margin:0">I'm Aiman — a versatile developer experienced in .NET, Flutter, and MERN Stack. My focus is on crafting responsive, data-driven web and mobile solutions using MySQL and MongoDB. I prioritize performance and user experience in every project.</p>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <h2>Services</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Full Stack Development</h3>
+          <p style="color:var(--muted)">From backend logic to frontend design using .NET, MERN Stack, and Flutter.</p>
+        </div>
+        <div class="card">
+          <h3>Database Solutions</h3>
+          <p style="color:var(--muted)">Efficient and secure data handling with MySQL and MongoDB.</p>
+        </div>
+        <div class="card">
+          <h3>Responsive Design</h3>
+          <p style="color:var(--muted)">Pixel-perfect interfaces that adapt beautifully across all devices.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2>Selected Projects</h2>
+      <div class="projects-grid">
+        <div class="project" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=60')">
+          <div class="overlay"><div style="font-weight:700">E-commerce App (.NET)</div></div>
+        </div>
+        <div class="project" style="background-image:url('https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=800&q=60')">
+          <div class="overlay"><div style="font-weight:700">React Portfolio Site</div></div>
+        </div>
+        <div class="project" style="background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=60')">
+          <div class="overlay"><div style="font-weight:700">Flutter Mobile App</div></div>
+        </div>
+        <div class="project" style="background-image:url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=60')">
+          <div class="overlay"><div style="font-weight:700">MERN Dashboard</div></div>
+        </div>
+        <div class="project" style="background-image:url('https://images.unsplash.com/photo-1557800636-894a64c1696f?auto=format&fit=crop&w=800&q=60')">
+          <div class="overlay"><div style="font-weight:700">Responsive Website</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section card">
+      <h2>Contact</h2>
+      <p style="color:var(--muted)">Interested in working together? Send a message — I'll reply within 24–48 hours.</p>
+      <form onsubmit="event.preventDefault();alert('Thanks! Form is demo-only. Replace with backend or mailto link.');">
+        <input type="text" placeholder="Your name" required />
+        <input type="email" placeholder="Your email" required />
+        <textarea placeholder="Brief message" required></textarea>
+        <div style="display:flex;gap:8px">
+          <button class="btn" type="submit">Send Message</button>
+          <a class="btn ghost" href="mailto:aiman@example.com">Email Direct</a>
+        </div>
+      </form>
+    </section>
+
+    <footer>
+  <p>© 2025 <strong>Aiman Hassan</strong></p>
+  <div style="margin-top:10px;display:flex;justify-content:center;gap:14px">
+    <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+    <a href="mailto:aiman@example.com">Email</a>
+  </div>
+</footer>
+
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){e.target.classList.add('visible');}
+      });
+    },{threshold:0.2});
+    sections.forEach(s=>observer.observe(s));
+  </script>
+</body>
+</html>
